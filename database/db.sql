@@ -1,0 +1,12 @@
+USE tasksdb;
+
+CREATE TABLE tasks (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(350),
+    done BOOLEAN NOT NULL DEFAULT 0,
+    createAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+select * from tasks 
