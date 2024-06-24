@@ -9,25 +9,42 @@ function TaskForm() {
                 title: "",
                 description: ""
             }}
-                onSubmit={async (values) => {
+                onSubmit={async (values, actions) => {
                     console.log(values)
                     try {
-                        const reponse= await createTaskRequest(values);
-                        console.log(reponse)
+                        const response = await createTaskRequest(values);
+                        console.log(response);
+                        actions.resetForm(); // Restablecer el formulario aquí
                     } catch (error) {
-                        console.log(error);                        
+                        console.log(error);
                     }
                 }}
             >
-                {({ handleChange, handleSubmit }) => (
+                {({ handleChange, handleSubmit, values, isSubmitting }) => (
                     <Form onSubmit={handleSubmit}>
-                        <label>title</label>
-                        <input onChange={handleChange} type='text' name='title' placeholder='Write a title' />
+                        <label>Title</label>
+                        <input
+                            onChange={handleChange}
+                            type='text'
+                            name='title'
+                            placeholder='Write a title'
+                            value={values.title}
+                        />
 
-                        <label>description</label>
-                        <textarea onChange={handleChange} name="description" rows='3' placeholder='Write a description'></textarea>
+                        <label>Description</label>
+                        <textarea
+                            onChange={handleChange}
+                            name="description"
+                            rows='3'
+                            placeholder='Write a description'
+                            value={values.description}
+                        ></textarea>
 
-                        <button type='submit'>Save</button>
+                        <button type='submit' disabled={isSubmitting}>
+                            {
+                                isSubmitting ? "saving..." : "Save"
+                            }
+                        </button>
                     </Form>
                 )}
             </Formik>
