@@ -14,14 +14,18 @@ function TaskPage() {
     loadTasks();
   }, [])
 
+  function renderMain(){
+    if(tasks.length === 0) {
+      return <h2>No task yet</h2>
+    }
+    return tasks.map(task => ( <TaskCard task={task} key ={task.id}/>))
+}
 
   return (
     <div>
       <h1>Task</h1>
       {
-        tasks.map(task => ( 
-          <TaskCard task={task} key ={task.id}/>
-        ))
+        renderMain()
       }
 
     </div>
